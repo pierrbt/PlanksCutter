@@ -1,0 +1,63 @@
+
+.solutions {
+    padding: 20px;
+    background: #ccc;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.allDisplayedPlanks {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+}
+
+
+.plankContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    align-items: center;
+}
+
+
+qty {
+    font: 20px Calibri
+}
+
+
+plank {
+    height: 50px;
+    width: 80%;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    background: #966f33;
+    border-radius: 5px;
+}
+
+cut {
+    width: 20%;
+    height: 38px;
+    background: #6e470b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: 2px solid #461f00;
+    margin: 4px;
+    border-radius: 2px;
+
+    font: 12px Calibri;
+    transition: font-size .3s;
+}
+
+cut:hover {
+    font-size: 20px;
+
+}

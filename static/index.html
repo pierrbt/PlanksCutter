@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PlanksCutter</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="../js/input.js" defer async></script>
+    <link rel="stylesheet" href="../css/input.css">
+</head>
+<body>
+    <h1>PlanksCutter</h1>
+    <h3>Le meilleur outil pour couper vos planches !</h3>
+    <hr />
+    <div>
+
+        <label for="longueurBasePlanche">Longueur des planches à découper (en cm) :</label>
+        <input type="number" id="longueurBasePlanche" name="longueurPlanche" min="0" max="100000" required>
+        <br />
+
+        <div class="planksContainer">
+            <div class="planks1 allPlanks">
+                <p class="plankNumber">Planche n°1</p>
+                <label for="longueurPlanche">Longueur des planches à obtenir (en cm) :</label>
+                <input class="plankLength" type="number" id="longueurPlanche" name="longueurPlanche" min="0" max="100000" required>
+                <br />
+                <label for="nombrePlanche">Nombre de planches à obtenir :</label>
+                <input class="plankQty" type="number" id="nombrePlanche" name="nombrePlanche" min="0" max="100000" required>
+            </div>
+            <input type="button" value="+" class="addPlank">
+        </div>
+
+        <br />
+        <input type="submit" value="Valider" class="sendPlanks">
+    </div>
+    <style>
+
+
+
+    </style>
+</body>
+</html>
