@@ -36,7 +36,13 @@ sendButton.addEventListener("click", function() {
         },
         body: JSON.stringify(send)
     }).then(res => res.json().then(data => {
-        displayPlanks(data);
+        if(data && (data["success"] === true))
+            displayPlanks(data);
+        else
+        {
+            alert("Une erreur est survenue lors du calcul : " + data["message"]);
+            sendButton.innerHTML = "Réessayer";
+        }
     }))
 
     sendButton.innerHTML = "Recalculer";
