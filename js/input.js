@@ -12,8 +12,7 @@ addButton.addEventListener("click", function() {
     planksContainer.appendChild(addButton);
 });
 sendButton.addEventListener("click", function() {
-    // change the value of the button to a loading animation
-    sendButton.innerHTML = "<div class=\"lds-dual-ring\"></div>";
+    sendButton.innerHTML = "Calcul en cours...";
     const longueurBasePlanche = document.getElementById("longueurBasePlanche").value;
     const planksToSend = [];
     for (let i = 0; i < allPlanks.length; i++) {
@@ -39,4 +38,6 @@ sendButton.addEventListener("click", function() {
     }).then(res => res.json().then(data => {
         displayPlanks(data);
     }))
+
+    sendButton.innerHTML = "Recalculer";
 });
