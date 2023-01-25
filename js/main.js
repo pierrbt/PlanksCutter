@@ -1,6 +1,6 @@
 var myAppendGrid = new AppendGrid({
   element: "tblAppendGrid",
-  uiFramework: "bootstrap4",
+  uiFramework: "bootstrap5",
   iconFramework: "fontawesome5",
   columns: [
     {
