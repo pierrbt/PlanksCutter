@@ -19,14 +19,17 @@ def upload(): # Définir la fonction qui sera appelée lors de l'arrivée sur la
 
         backJson['baseSize'] = longeurBasePlanche # Ajouter la longueur de la base des planches au json de retour
         planksValues = data['planksToSend'] # Récupérer les valeurs des planches
+
         W = (longeurBasePlanche, 10) # Définir la longueur de la base des planches
         w = []  # Définir la liste des longueurs des planches
         b = [] # Définir la liste des nombres de planches
+
         for plank in planksValues: # Pour chaque planche
             nbr = int(plank['nombrePlanche']) # Récupérer le nombre de planches
             lng = int(plank['longueurPlanche']) # Récupérer la longueur de la planche
             w.append((lng, 1)) # Ajouter la longueur de la planche à la liste des longueurs des planches
             b.append(nbr) # Ajouter le nombre de planches à la liste des nombres de planches
+
         obj, lst_sol = vbpsolver.solve( # Résoudre le problème de bin packing
         W, w, b, script="vpsolver_glpk.sh", verbose=False # Utiliser le script vpsolver_glpk.sh pour résoudre le problème
         )
