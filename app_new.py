@@ -12,15 +12,12 @@ def checkInData(cuts):
         if (type(i) != int):
             continue
         else:
-            l.append((i, 1))
+            l.append((i,))
     for j in cuts["quantity"]:
         if (type(j) != int):
             continue
         else:
             q.append(j)
-
-    print("Longueurs : ", l)
-    print("Quantités : ", q)
     return l, q
 
 def startJson():
@@ -33,14 +30,43 @@ def startJson():
     return json
 
 def solver(k, l, q, back):
-    B = (k, 9)
+    B = (k,)
     objective, list_solutions = vbpsolver.solve(B, l, q, script="vpsolver_glpk.sh", verbose=False)
-    print("Avec longueur ", k, ", objectif : ", objective)
+    list_solutions = list_solutions[0]
+
+    longueurBrute = objective * k
+    longueurNette = 0
+
     back["results"][k] = {
         "statistics": {
             "objectif": objective
-        }
+        },
+        "qty": [],
+        "size": []
     }
+
+    for row in list_solutions:  # Pour chaque solution
+        cb = row[0]  # Récupérer le nombre de planches à couper avec la pattern
+        back["results"][k]["qty"].append(cb)
+
+        vals = row[1]  # Récupérer les valeurs de la pattern
+        back["results"][k]["size"].append([])
+        index = len(back["results"][k]["size"]) - 1
+        for val in vals:  # Pour chaque valeur de la pattern
+            back["results"][k]["size"][index].append(l[val[0]][0])
+
+        longueurNette += cb * sum(back["results"][k]["size"][index])
+
+    print("Planche de ", k, "u")
+    print("Longueur totale : ", longueurNette, "u utilisés / ", longueurBrute, "u")
+    perteUnit = longueurBrute - longueurNette
+    pertePercent = (perteUnit / longueurBrute) * 100
+
+    print("Perte : ", pertePercent, "%, ", perteUnit, " u")
+    print("\n")
+
+
+
 
 def calcul(jsonData):
     start_time = time.time()
@@ -82,8 +108,12 @@ def calcul(jsonData):
     duration = round(((end_time - start_time) * 1000), 1)
     print("Runtime : ", duration, " ms")
     back["execution_time"] = str(duration) + " ms"
-    print("JSON : ", back)
-    return
+
+    #exports = jsonify(back)
+    print("-------------------------------------------------\n",
+          back,
+          "\n-------------------------------------------------\n")
+    return #exports
 
 
 def start():
@@ -96,12 +126,12 @@ def start():
                     ],
                 "quantity":
                     [
-                        3832, 3841, 2842, 11930, 8294, 2033, 2839
+                        283, 29, 293, 139, 238, 127, 193
                     ]
             },
         "planks":
             [
-                2000, 5000, 2000, 1000, 500
+                2000, 1000, 500
             ],
         "cutSize": 2,
         "export":
