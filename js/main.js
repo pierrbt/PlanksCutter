@@ -91,6 +91,17 @@ function getEnteredData()
   console.log(jsonData);
   jsonData = JSON.stringify(jsonData);
 
+  fetch("/api/upload", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+      },
+    body: jsonData
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Success:", data);
+    });
 }
 
 document.getElementsByClassName("submit")[0].addEventListener("click", getEnteredData);

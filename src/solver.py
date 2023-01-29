@@ -1,9 +1,6 @@
 from pyvpsolver.solvers import vbpsolver
-from flask import *
 import time
 import threading
-import math
-
 
 def checkInData(cuts):
     l = []
@@ -27,7 +24,9 @@ def startJson():
     json["message"] = "Calculs effectués avec succès"
     json["results"] = {}
     json["execution_time"] = "0ms"
-    json["exports"] = []
+    json["exports"] = {
+        "direct" : "#"
+    }
     return json
 
 def solver(k, l, q, back):
@@ -104,41 +103,4 @@ def calcul(jsonData):
     print("Runtime : ", duration, " ms")
     back["execution_time"] = str(duration) + " ms"
 
-    #exports = jsonify(back)
-    print("-------------------------------------------------\n",
-          back,
-          "\n-------------------------------------------------\n")
-    return #exports
-
-
-def start():
-    json = {
-        "cuts":
-            {
-                "sizes":
-                    [
-                        482, 299, 239, 392, 129, 500, 23
-                    ],
-                "quantity":
-                    [
-                        283, 29, 293, 139, 238, 127, 193
-                    ]
-            },
-        "planks":
-            [
-                2000, 1000, 500
-            ],
-        "cutSize": 2,
-        "export":
-            {
-                "direct": True,
-                "pdf": False,
-                "csv": False
-            }
-    }
-    calcul(json)
-    return
-
-
-if __name__ == "__main__":
-    start()
+    return back
