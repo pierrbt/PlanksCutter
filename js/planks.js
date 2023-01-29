@@ -29,7 +29,6 @@ function displayPlanks(json)
         thisContainer.appendChild(thisPlank);
         allPlanks.appendChild(thisContainer);
     }
-    addTheInteractions();
     solutions.style.display = "flex";
 }
 

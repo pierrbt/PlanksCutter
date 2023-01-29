@@ -1,0 +1,24 @@
+{
+  "cuts":
+  {
+    "sizes":
+      [
+        1, 29, 30, 20, 10, 49, 32
+      ],
+    "quantity":
+      [
+        3, 1, 2, 10, 8, 23, 28
+      ]
+  },
+  "planks":
+      [
+        1000, 500, 200, 100, 50
+      ],
+  "cutSize": 2,
+  "export" :
+  {
+    "direct": true,
+    "pdf": false,
+    "csv": false
+  }
+}

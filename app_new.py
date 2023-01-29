@@ -2,6 +2,7 @@ from pyvpsolver.solvers import vbpsolver
 from flask import *
 import time
 import threading
+import math
 
 
 def checkInData(cuts):
@@ -39,34 +40,28 @@ def solver(k, l, q, back):
 
     back["results"][k] = {
         "statistics": {
-            "objectif": objective
+            "objective": objective
         },
-        "qty": [],
-        "size": []
+        "patterns": [],
+        "quantity": []
     }
 
     for row in list_solutions:  # Pour chaque solution
         cb = row[0]  # Récupérer le nombre de planches à couper avec la pattern
-        back["results"][k]["qty"].append(cb)
+        back["results"][k]["quantity"].append(cb)
 
         vals = row[1]  # Récupérer les valeurs de la pattern
-        back["results"][k]["size"].append([])
-        index = len(back["results"][k]["size"]) - 1
+        back["results"][k]["patterns"].append([])
+        index = len(back["results"][k]["patterns"]) - 1
         for val in vals:  # Pour chaque valeur de la pattern
-            back["results"][k]["size"][index].append(l[val[0]][0])
+            back["results"][k]["patterns"][index].append(l[val[0]][0])
 
-        longueurNette += cb * sum(back["results"][k]["size"][index])
+        longueurNette += cb * sum(back["results"][k]["patterns"][index])
 
-    print("Planche de ", k, "u")
-    print("Longueur totale : ", longueurNette, "u utilisés / ", longueurBrute, "u")
-    perteUnit = longueurBrute - longueurNette
-    pertePercent = (perteUnit / longueurBrute) * 100
-
-    print("Perte : ", pertePercent, "%, ", perteUnit, " u")
-    print("\n")
-
-
-
+    back["results"][k]["statistics"]["brut"] = longueurBrute
+    back["results"][k]["statistics"]["net"] = longueurNette
+    back["results"][k]["statistics"]["loss_unit"] = longueurBrute - longueurNette
+    back["results"][k]["statistics"]["loss_percent"] = round(((longueurBrute - longueurNette) / longueurBrute) * 100, 2)
 
 def calcul(jsonData):
     start_time = time.time()

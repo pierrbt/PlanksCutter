@@ -1,8 +1,166 @@
-.container-fluid
-{
-  max-width: 800px;
-  margin-top: 30px;
-  border: 1px solid gray;
-  border-radius: 5px;
+@charset "utf-8";
+* {
+	margin: 0px;
+	padding: 0px;
+}
 
+html {
+	font-family: 'Mitr', sans-serif;
+}
+
+header {
+	width: 100%;
+}
+
+
+
+body {
+	background: #ffffff;
+}
+
+h1 {
+	text-align: center;
+	font-size: 4.5em;
+	font-family: 'Rum Raisin', sans-serif;
+	color: black;
+}
+
+h2 {
+	text-align: center;
+	font-size: 3em;
+	font-family: 'Rum Raisin', sans-serif;
+	color: black;
+}
+
+p{
+	padding: 6px;
+}
+
+a {
+	text-decoration: underline;
+	transition: all .3s;
+}
+
+a:hover {
+	font-weight: bold;
+}
+
+a:focus {
+	color: white;
+	background-color: #888888;
+}
+
+.conteneur {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 100%;
+	padding-left: 10%;
+
+	margin-bottom: 100px;
+	padding-bottom: 100px;
+}
+
+.conteneurTableau {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 90%;
+	margin-top: 50px;
+	opacity: 0.85;
+	border-radius: 10px;
+	background-color: #ffffff;
+	position: relative;
+	padding: 10px 0 10px 0;
+	border: 1px solid gray;
+	margin-bottom: 50px;
+
+}
+
+.submit {
+	width: 30%;
+	height: 50px;
+	background-color: green;
+	padding: 10px;
+	border: black 1px solid;
+	border-radius: 10px;
+	margin-left: 30%;
+	transition: all .6s;
+}
+
+.submit:hover {
+	font-size: 20px;
+	background-color: darkgreen;
+}
+
+
+
+
+.taille66 {
+	width: 60%;
+}
+
+.taille33 {
+	width: 30%;
+}
+
+
+
+
+/* FOOTER */
+
+footer {
+	/* footer */
+	background: #24252a;
+	/* couleur de fond */
+	height: auto;
+	/* hauteur */
+	width: 100%;
+	/* largeur */
+	color: #fff;
+	/* couleur de texte */
+	position: fixed;
+
+
+	/* positionnement relatif */
+	bottom: 0;
+	/* positionnement en hauteur */
+	margin: 0;
+	/* marge */
+
+}
+
+.footer-bottom {
+	/* footer-bottom */
+	padding: 10px 0;
+	/* marge intÃ©rieure */
+	text-align: center;
+	/* alignement du texte */
+}
+
+.footer-bottom p {
+	margin-top: 20px;
+	/* footer-bottom p */
+	font-size: 14px;
+	/* taille de la police */
+	word-spacing: 2px;
+	/* espacement des mots */
+	text-transform: capitalize;
+	/* transformation du texte */
+}
+
+.footer-bottom a {
+	/* footer-bottom a */
+	text-decoration: none;
+	/* pas de soulignement */
+	color: #fff;
+	/* couleur de texte */
+	opacity: .4;
+	/* opacitÃ© */
+	transition: all .5s;
+
+}
+
+.footer-bottom a:hover {
+	text-decoration: underline;
 }
