@@ -100,7 +100,14 @@ function getEnteredData()
     })
     .then(response => response.json())
     .then(data => {
-        console.log("Success:", data);
+        if(data["success"] != true)
+        {
+            console.error(data["message"]);
+            alert("Une erreur est survenue lors de la génération des planches ! Voir la console pour plus d'informations.");
+            return;
+        }
+        console.log(data);
+        displayPlanks(data);
     });
 }
 

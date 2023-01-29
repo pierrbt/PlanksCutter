@@ -1,5 +1,6 @@
 
 .solutions {
+    margin-top : 20px;
     padding: 20px;
     background: #ccc;
     border-radius: 20px;
@@ -24,6 +25,14 @@
     margin-top: 20px;
     align-items: center;
     background: #ccc;
+    width: 95%;
+}
+
+.plankContainer h3 {
+    font: 20px Calibri;
+    margin: 0;
+    padding: 0;
+    text-decoration: underline;
 }
 
 
@@ -62,6 +71,41 @@ cut {
 cut:hover {
     font-size: 20px;
 
+}
+
+.resultContainer
+{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    margin: 20px 0;
+    border: 2px solid #000;
+    padding: 20px 0;
+}
+
+stats {
+    font: 20px Calibri;
+    margin: 0;
+    padding: 0;
+    background: #999;
+    border-radius: 20px;
+    padding: 10px;
+    margin: 10px;
+    width: 50%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #333;
+}
+
+stats * {
+    margin: 0;
+    padding: 0;
 }
 
 
