@@ -17,10 +17,29 @@ function displayPlanks(json)
 
         const name = document.createElement("h3");
         name.innerText = "Planche de " + baseSize;
-        resultContainer.appendChild(name);
+
 
         const { patterns, quantity, statistics } = result;
 
+
+        const thisStats = document.createElement("stats");
+        const thisObj = document.createElement("obj");
+        thisObj.innerText = statistics["objective"] + " planches requises";
+        thisStats.appendChild(thisObj);
+        const thisSizes = document.createElement("sizes");
+        thisSizes.innerText = statistics["net"] + " / " + statistics["brut"] + " utilisés";
+        thisStats.appendChild(thisSizes);
+        const thisWaste = document.createElement("waste");
+        thisWaste.innerText = statistics["loss_unit"] + " (" + statistics["loss_percent"] + "%) de perte";
+        thisStats.appendChild(thisWaste);
+
+        // name et thisStats dans un conteneur flex row
+        const titleContainer = document.createElement("div");
+        titleContainer.classList.add("titleContainer");
+        titleContainer.appendChild(name);
+        titleContainer.appendChild(thisStats);
+
+        resultContainer.appendChild(titleContainer);
         for(let i = 0; i < patterns.length; i++)
         {
             const thisContainer = document.createElement("div");
@@ -45,19 +64,6 @@ function displayPlanks(json)
             thisContainer.appendChild(thisPlank);
             resultContainer.appendChild(thisContainer);
         }
-
-        const thisStats = document.createElement("stats");
-        const thisObj = document.createElement("obj");
-        thisObj.innerText = statistics["objective"] + " planches requises";
-        thisStats.appendChild(thisObj);
-        const thisSizes = document.createElement("sizes");
-        thisSizes.innerText = statistics["net"] + " / " + statistics["brut"] + " utilisés";
-        thisStats.appendChild(thisSizes);
-        const thisWaste = document.createElement("waste");
-        thisWaste.innerText = statistics["loss_unit"] + " (" + statistics["loss_percent"] + "%) de perte";
-        thisStats.appendChild(thisWaste);
-
-        resultContainer.appendChild(thisStats);
 
         allPlanks.appendChild(resultContainer);
 
