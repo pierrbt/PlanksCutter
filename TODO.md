@@ -23,15 +23,16 @@
 ---
 
 ### Organisation : 
-- `24/01` : HTML de la page principale avec le tableau dynamique
-- `25/01` : Ajout du fichier CSV et finitions
-- `26/01` : Ajout du tableau de statistiques
-- `27/01` : Récupération de toutes les données et organisation
-- `28/01` : Traitement des données et récupération des résultats
-- `29/01` : Génération des statistiques et création du JSON
-- `30/01` : Affichage des résultats sur la page HTML
-- `31/01` : Exportation des données en CSV, PDF
-- `01/02` : Publication du site
+- [x] HTML de la page principale avec le tableau dynamique
+- [x] Finitions
+- [x] Ajout du tableau de statistiques
+- [x] Récupération de toutes les données et organisation
+- [x] Traitement des données et récupération des résultats
+- [x] Génération des statistiques et création du JSON
+- [x] Affichage des résultats sur la page HTML
+- [x] Publication du site
+- [ ] Exportation des données en CSV, PDF
+- [ ] Entrée des données en CSV
 
 ### Ressources : 
 
