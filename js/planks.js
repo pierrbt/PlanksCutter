@@ -15,9 +15,27 @@ function displayPlanks(json)
 
         const baseSize = key;
 
+        const header = document.createElement("div");
+        header.classList.add("top-header");
+
+        const download = document.createElement("a");
+
+        download.classList.add("download");
+        download.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" height=\"40\" width=\"40\"><path d=\"M9.458 33.333q-1.125 0-1.958-.833t-.833-1.958v-5.625h2.791v5.625h21.084v-5.625h2.791v5.625q0 1.125-.833 1.958t-1.958.833ZM20 26.875l-8.125-8.167 1.958-2 4.792 4.792V6.667h2.75V21.5l4.792-4.792 1.958 2Z\"/></svg>";
+
+
+        download.href = "data:text/csv;charset=utf-8," + encodeURIComponent(result["csv"]);
+        download.download = "planches_" + baseSize + ".csv";
+
+        header.appendChild(download);
+
+
         const name = document.createElement("h3");
         name.innerText = "Planche de " + baseSize;
-        resultContainer.appendChild(name);
+
+
+        header.appendChild(name);
+        resultContainer.appendChild(header);
 
         const { patterns, quantity, statistics } = result;
 
