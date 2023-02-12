@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from pyvpsolver.solvers import vbpsolver
 import time
 import threading
@@ -42,7 +44,8 @@ def solver(k, l, q, back):
             "objective": objective
         },
         "patterns": [],
-        "quantity": []
+        "quantity": [],
+        "csv": ""
     }
 
     for row in list_solutions:  # Pour chaque solution
@@ -61,6 +64,51 @@ def solver(k, l, q, back):
     back["results"][k]["statistics"]["net"] = longueurNette
     back["results"][k]["statistics"]["loss_unit"] = longueurBrute - longueurNette
     back["results"][k]["statistics"]["loss_percent"] = round(((longueurBrute - longueurNette) / longueurBrute) * 100, 2)
+
+    # On doit créer un fichier CSV pour chaque planche qui ressemble à ça :
+    """
+    Résultats pour la planche de : ;;;5000;;;;;;
+;;;;;;;;;
+Statistiques :;;;;;;;;;
+Perte (%);12%;;;;;;;;
+Perte (u);450;;;;;;;;
+Utilisé;6500;;;;;;;;
+Totale;6950;;;;;;;;
+;;;;;;;;;
+Coupes :;Nombre de coupes;Longueurs;;;;;;;
+;20;10;20;30;500;420;590;;
+;12;106;54;87;21;36;;;
+;90;204;6;2;4;94;62;418;18
+;;;;;;;;;
+Exporté par PlanksCutter, le 06/05/2023;;;;;;;;;
+"""
+    back["results"][k]["csv"] = "Resultats pour la planche de : ;;;" + str(k) + ";;;;;;\n"
+    back["results"][k]["csv"] += ";;;;;;;;;\n"
+    back["results"][k]["csv"] += "Statistiques :;;;;;;;;;\n"
+    back["results"][k]["csv"] += "Perte (%);" + str(back["results"][k]["statistics"]["loss_percent"]) + "%;;;;;;;\n"
+    back["results"][k]["csv"] += "Perte (u);" + str(back["results"][k]["statistics"]["loss_unit"]) + ";;;;;;;\n"
+    back["results"][k]["csv"] += "Utilise;" + str(back["results"][k]["statistics"]["net"]) + ";;;;;;;\n"
+    back["results"][k]["csv"] += "Totale;" + str(back["results"][k]["statistics"]["brut"]) + ";;;;;;;\n"
+    back["results"][k]["csv"] += ";;;;;;;;;\n"
+    back["results"][k]["csv"] += "Coupes :;Nombre de coupes;Longueurs;;;;;;;\n"
+
+
+    # On met chaque quantity de coupes et toutes les longueurs de chaque pattern
+    for i in range(len(back["results"][k]["quantity"])):
+        back["results"][k]["csv"] += ";" + str(back["results"][k]["quantity"][i])
+        for j in range(len(back["results"][k]["patterns"][i])):
+            back["results"][k]["csv"] += ";" + str(back["results"][k]["patterns"][i][j])
+        back["results"][k]["csv"] += ";\n"
+
+
+
+    back["results"][k]["csv"] += ";;;;;;;;;\n"
+
+    current_datetime = datetime.now()
+    current_date_time = current_datetime.strftime("%m/%d/%Y, %H:%M")
+
+    back["results"][k]["csv"] += "Export par PlanksCutter, le " + str(current_date_time) + ";;;;;;;;;\n"
+
 
 def calcul(jsonData):
     start_time = time.time()
