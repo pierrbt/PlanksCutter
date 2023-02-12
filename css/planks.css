@@ -94,7 +94,6 @@ stats {
     border-radius: 20px;
     padding: 10px;
     margin: 10px;
-    margin-top: 20px;
     width: 50%;
     text-align: center;
     display: flex;
@@ -104,23 +103,9 @@ stats {
     border: 2px solid #333;
 }
 
-.top-header
-{
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: space-around;
-    width: 50%;
-    margin: 5px 25%;
-    align-content: center;
-    align-items: center;
-    text-align: center;
-}
-
 stats * {
     margin: 0;
     padding: 0;
 }
-
-
 
 
