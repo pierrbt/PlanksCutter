@@ -62,7 +62,7 @@ function convertToJson() {
       "quantity": nbr
     },
     "planks": planks,
-    "cutSize": 2,
+    "cutSize": 5,
     "export" :
         {
           "direct": true,

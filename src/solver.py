@@ -27,13 +27,22 @@ def startJson():
     json["results"] = {}
     json["execution_time"] = "0ms"
     json["exports"] = {
-        "direct" : "#"
+        "direct": "#"
     }
     return json
 
-def solver(k, l, q, back):
+def solver(k, l, q, back, cutSize):
     B = (k,)
-    objective, list_solutions = vbpsolver.solve(B, l, q, script="vpsolver_glpk.sh", verbose=False)
+
+    lWithCut = []
+
+    for i in l:
+        lWithCut.append((i[0] + cutSize,))
+
+    print("lWithCut : " + str(lWithCut))
+
+
+    objective, list_solutions = vbpsolver.solve(B, lWithCut, q, script="vpsolver_glpk.sh", verbose=False)
     list_solutions = list_solutions[0]
 
     longueurBrute = objective * k
@@ -65,23 +74,6 @@ def solver(k, l, q, back):
     back["results"][k]["statistics"]["loss_unit"] = longueurBrute - longueurNette
     back["results"][k]["statistics"]["loss_percent"] = round(((longueurBrute - longueurNette) / longueurBrute) * 100, 2)
 
-    # On doit créer un fichier CSV pour chaque planche qui ressemble à ça :
-    """
-    Résultats pour la planche de : ;;;5000;;;;;;
-;;;;;;;;;
-Statistiques :;;;;;;;;;
-Perte (%);12%;;;;;;;;
-Perte (u);450;;;;;;;;
-Utilisé;6500;;;;;;;;
-Totale;6950;;;;;;;;
-;;;;;;;;;
-Coupes :;Nombre de coupes;Longueurs;;;;;;;
-;20;10;20;30;500;420;590;;
-;12;106;54;87;21;36;;;
-;90;204;6;2;4;94;62;418;18
-;;;;;;;;;
-Exporté par PlanksCutter, le 06/05/2023;;;;;;;;;
-"""
     back["results"][k]["csv"] = "Resultats pour la planche de : ;;;" + str(k) + ";;;;;;\n"
     back["results"][k]["csv"] += ";;;;;;;;;\n"
     back["results"][k]["csv"] += "Statistiques :;;;;;;;;;\n"
@@ -114,6 +106,8 @@ def calcul(jsonData):
     start_time = time.time()
     back = startJson()
     try:
+        cutSize = jsonData["cutSize"]
+
         cuts = jsonData["cuts"]
         planks = jsonData["planks"]
 
@@ -131,7 +125,7 @@ def calcul(jsonData):
             if (k < max(l)[0]):
                 raise ValueError("Les coupes ne peuvent pas êtres plus petites que la planche !")
             workers.append(
-                threading.Thread(target=solver, args=(k, l, q, back))
+                threading.Thread(target=solver, args=(k, l, q, back, cutSize))
             )
         for m in range(len(workers)):
             workers[m].start()
