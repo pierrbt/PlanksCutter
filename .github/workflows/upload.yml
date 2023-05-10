@@ -13,19 +13,15 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Install SSH and SFTP clients
-      run: sudo apt-get install -y openssh-client
+    - name: Install SSH client and lftp
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y openssh-client lftp
 
     - name: Transfer files to server
       run: |
-        echo "put -r ./ /root/Documents/PlanksCutter" > sftp_commands
-        sftp -oStrictHostKeyChecking=no -b sftp_commands ${SFTP_USERNAME}@veagle.fr
-      env:
-        SFTP_USERNAME: ${{ secrets.USERNAME }}
-        SFTP_PASSWORD: ${{ secrets.PASSWORD }}
+        lftp -c "open -u ${{ secrets.USERNAME }},${{ secrets.PASSWORD }} sftp://veagle.fr; mirror -R ./ /root/Documents/PlanksCutter"
 
     - name: Restart Planks Cutter service
-      run: ssh -oStrictHostKeyChecking=no -l ${SSH_USERNAME} -p 22 veagle.fr "systemctl restart planks-cutter"
-      env:
-        SSH_USERNAME: ${{ secrets.USERNAME }}
-        SSH_PASSWORD: ${{ secrets.PASSWORD }}
+      run: |
+        sshpass -p "${{ secrets.PASSWORD }}" ssh -oStrictHostKeyChecking=no -l ${{ secrets.USERNAME }} veagle.fr "systemctl restart planks-cutter"
