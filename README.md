@@ -4,6 +4,7 @@ PlanksCutter is a tool to cut large planks with the lowest loss !
 It uses HTML, CSS and Javascript on client-side and Python on server-side.
 
 This is currently in development so feel free to add suggestions or PR.
+There are still some features to add !
 
 ---
 
