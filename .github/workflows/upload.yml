@@ -20,7 +20,7 @@ jobs:
 
     - name: Transfer files to server
       run: |
-        lftp -c "open -u ${{ secrets.USERNAME }},${{ secrets.PASSWORD }} sftp://veagle.fr; mirror -R ./ /root/Documents/PlanksCutter"
+        lftp -c "open -u ${{ secrets.USERNAME }},${{ secrets.PASSWORD }} -o StrictHostKeyChecking=no -e 'set sftp:auto-confirm yes; mirror -R ./ /root/Documents/PlanksCutter; exit' sftp://veagle.fr"
 
     - name: Restart Planks Cutter service
       run: |
