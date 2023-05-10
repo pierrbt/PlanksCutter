@@ -13,22 +13,19 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Install SSH client
+    - name: Install SSH and SFTP clients
       run: sudo apt-get install -y openssh-client
 
     - name: Transfer files to server
-      uses: SamKirkland/FTP-Deploy-Action@4.0.0
-      with:
-        server: veagle.fr
-        username: ${{ secrets.USERNAME }}
-        password: ${{ secrets.PASSWORD }}
-        server-dir: /root/Documents/PlanksCutter
-        local-dir: ./
+      run: |
+        echo "put -r ./ /root/Documents/PlanksCutter" > sftp_commands
+        sftp -oStrictHostKeyChecking=no -b sftp_commands ${SFTP_USERNAME}@veagle.fr
+      env:
+        SFTP_USERNAME: ${{ secrets.USERNAME }}
+        SFTP_PASSWORD: ${{ secrets.PASSWORD }}
 
     - name: Restart Planks Cutter service
-      uses: appleboy/ssh-action@v0.5.0
-      with:
-        host: example.com
-        username: ${{ secrets.USERNAME }}
-        password: ${{ secrets.PASSWORD }}
-        script: systemctl restart planks-cutter
+      run: ssh -oStrictHostKeyChecking=no -l ${SSH_USERNAME} -p 22 veagle.fr "systemctl restart planks-cutter"
+      env:
+        SSH_USERNAME: ${{ secrets.USERNAME }}
+        SSH_PASSWORD: ${{ secrets.PASSWORD }}
