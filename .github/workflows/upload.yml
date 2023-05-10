@@ -1,0 +1,34 @@
+name: SFTP transfer and SSH restart
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  transfer_and_restart:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install SSH client
+      run: sudo apt-get install -y openssh-client
+
+    - name: Transfer files to server
+      uses: SamKirkland/FTP-Deploy-Action@4.0.0
+      with:
+        server: veagle.fr
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        server-dir: /root/Documents/PlanksCutter
+        local-dir: ./
+
+    - name: Restart Planks Cutter service
+      uses: appleboy/ssh-action@v0.5.0
+      with:
+        host: example.com
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        script: systemctl restart planks-cutter
